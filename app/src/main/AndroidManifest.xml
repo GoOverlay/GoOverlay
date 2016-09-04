@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.waterfoul.gooverlay"
+    xmlns:tools="http://schemas.android.com/tools"
+>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions"
+    />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".WatchPoGoRunningSvc"
+            android:exported="true"
+            />
+
+        <service
+            android:name=".ScreenGrabberService"
+            android:exported="true"
+        />
+
+        <service
+            android:name=".FetchDataService"
+            android:exported="true"
+        >
+            <intent-filter>
+                <action android:name="net.waterfoul.gooverlay.fetch_data" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

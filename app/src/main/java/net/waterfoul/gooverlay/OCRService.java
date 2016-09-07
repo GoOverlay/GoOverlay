@@ -11,6 +11,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import net.waterfoul.gooverlay.interop.SinglePokemon;
+import net.waterfoul.gooverlay.Scrapers.singlePokemon;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,7 +26,7 @@ public abstract class OCRService extends Service {
     public static OCRService currentInstance = null;
 
     private ReentrantLock imageLock = new ReentrantLock();
-    private DisplayMetrics displayMetrics;
+    public static DisplayMetrics displayMetrics;
     private OCRHelper ocr;
 
     private Bitmap currentImage = null;
@@ -127,7 +128,6 @@ public abstract class OCRService extends Service {
     protected void initLocations() {
         displayMetrics = this.getResources().getDisplayMetrics();
 
-
         location_center_button_1[0] = (int) Math.round(displayMetrics.widthPixels * (720/1440.0));
         location_center_button_1[1] = (int) Math.round(displayMetrics.heightPixels * (2342/2560.0));
 
@@ -192,7 +192,7 @@ public abstract class OCRService extends Service {
     public SinglePokemon fetchSinglePokemon() {
         imageLock.lock();
         try {
-            return ocr.scanPokemon(currentImage, 22);
+            return singlePokemon.scanPokemon(ocr, currentImage, 22);
         } finally {
             imageLock.unlock();
         }
